@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f7f6f2">
+  <title>观澜 · 与你，持续对话</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 11.5a8 8 0 0 1-8 8H5l-3 2v-10a9 9 0 0 1 18 0Z"/></symbol>
+    <symbol id="i-memory" viewBox="0 0 24 24"><path d="M12 3c-5 0-9 4-9 9s4 9 9 9 9-4 9-9-4-9-9-9Z M12 3c-3 3-4 6-4 9s1 6 4 9M12 3c3 3 4 6 4 9s-1 6-4 9M3 12h18"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="m10 3-1 3-3 1-3 3 2 3-1 4 4 1 2 3 4-1 3-1 1-4 3-2-2-4-3-1-2-3Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-panel" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M15 4v16"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="m9 3 9 9-4 1-3 4-4-4-4 1 4-4ZM10 15l-6 6"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 4C9 3 3 8 6 15s15 4 14-11ZM5 20l10-10"/></symbol>
+  </defs></svg>
+  <div class="app-shell" id="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="会话导航">
+      <a class="brand" href="/" aria-label="观澜首页"><span class="brand-mark">观</span><span>观澜<small>GUANLAN</small></span></a>
+      <button class="new-chat" id="new-chat"><svg class="icon"><use href="#i-plus"/></svg>新对话<span class="shortcut">⌘ K</span></button>
+      <div class="sidebar-heading">你的对话<span id="session-count"></span></div>
+      <nav class="session-list" id="session-list" aria-label="历史会话"><p class="quiet sidebar-empty">正在连接工作台…</p></nav>
+      <div class="sidebar-footer">
+        <div class="continuity"><span class="status-dot"></span><div>同一个你，持续的对话<small>记忆连接话题，而非困在会话里</small></div></div>
+        <button class="settings-button" id="open-settings"><span class="avatar">你</span><span>个人工作台<small>模型与偏好设置</small></span><svg class="icon"><use href="#i-settings"/></svg></button>
+      </div>
+    </aside>
+    <div class="mobile-scrim" id="mobile-scrim"></div>
+    <main class="workspace">
+      <header class="topbar">
+        <button class="icon-button mobile-menu" id="toggle-sidebar" aria-label="打开会话导航"><svg class="icon"><use href="#i-menu"/></svg></button>
+        <div class="conversation-title"><strong id="conversation-title">新的开始</strong><span>与你，持续对话</span></div>
+        <div class="topbar-actions"><button class="mode-badge" id="model-badge" title="配置模型"><span class="status-dot"></span><span id="model-name">连接中</span></button><button class="icon-button" id="toggle-memory" aria-label="收起记忆面板" aria-expanded="true"><svg class="icon"><use href="#i-panel"/></svg></button></div>
+      </header>
+      <div class="connection-banner" id="connection-banner" role="status" hidden><span id="connection-text"></span><button id="reconnect">重新同步</button></div>
+      <div class="chat-scroll" id="chat-scroll">
+        <section class="welcome" id="welcome">
+          <div class="welcome-emblem" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M9 26c8-12 18 12 27 0s14-9 19-5M9 36c8-12 18 12 27 0s14-9 19-5M9 46c8-12 18 12 27 0s14-9 19-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+          <p class="eyebrow">一点了解，慢慢积累</p>
+          <h1>每次对话，<br>都不必从头认识。</h1>
+          <p class="welcome-description">聊眼前的事，也记住对你重要的事。<br>你的偏好、目标与边界，由你随时查看和决定。</p>
+          <div class="prompt-chips">
+            <button data-prompt="我希望你记住我的沟通偏好："><svg class="icon"><use href="#i-chat"/></svg><strong>从了解我开始</strong><span>告诉观澜你的沟通偏好</span></button>
+            <button data-prompt="我最近的目标是："><svg class="icon"><use href="#i-leaf"/></svg><strong>一起理清目标</strong><span>把想做的事，变成下一步</span></button>
+            <button data-prompt="今天我想和你聊聊："><svg class="icon"><use href="#i-plus"/></svg><strong>随意聊聊今天</strong><span>从一个念头，开启对话</span></button>
+          </div>
+        </section>
+        <section class="messages" id="messages" aria-label="对话消息" aria-busy="false"></section>
+      </div>
+      <div class="composer-area">
+        <div class="preview-notice" id="preview-notice"><span class="preview-label">本地预览</span>当前为规则回复，非真实大模型。<button id="connect-model">连接模型 <span aria-hidden="true">↗</span></button></div>
+        <form class="composer" id="composer">
+          <label class="sr-only" for="message-input">输入消息</label>
+          <textarea id="message-input" rows="2" maxlength="6000" placeholder="说说你正在想的事…" required></textarea>
+          <div class="composer-toolbar"><button type="button" class="memory-switch" id="memory-switch" role="switch" aria-checked="true"><svg class="icon"><use href="#i-memory"/></svg><span id="memory-switch-text">记忆已开启</span><span class="switch-track"></span></button><div class="send-area"><span class="input-count" id="input-count"></span><button type="submit" class="send-button" id="send-button" aria-label="发送消息" disabled><svg class="icon"><use href="#i-arrow"/></svg></button></div></div>
+        </form>
+        <div class="composer-footnote"><span id="composer-status">记忆可查看、修改与忘记。你始终拥有决定权。</span><span class="keyboard-hint">Enter 发送 · Shift Enter 换行</span></div>
+      </div>
+    </main>
+    <aside class="memory-panel" id="memory-panel" aria-label="长期记忆">
+      <header class="memory-header"><div><svg class="icon"><use href="#i-memory"/></svg><h2>关于你的记忆</h2></div><button class="icon-button" id="close-memory" aria-label="收起记忆面板"><svg class="icon"><use href="#i-close"/></svg></button></header>
+      <div class="memory-intro"><p>一点一滴，了解你。</p><span>跨越会话保留，只记下你明确告诉我的事。</span></div>
+      <label class="memory-search"><svg class="icon"><use href="#i-search"/></svg><input id="memory-search" type="search" placeholder="搜索记忆" aria-label="搜索记忆"></label>
+      <div class="memory-filters" id="memory-filters" aria-label="记忆分类"><button class="active" data-category="all" aria-pressed="true">全部</button><button data-category="profile" aria-pressed="false">关于你</button><button data-category="preference" aria-pressed="false">偏好</button><button data-category="goal" aria-pressed="false">目标</button><button data-category="boundary" aria-pressed="false">边界</button></div>
+      <div class="memory-list" id="memory-list"></div>
+      <div class="memory-footer"><button class="add-memory" id="add-memory"><svg class="icon"><use href="#i-plus"/></svg>手动记下一件事</button><p><span class="status-dot"></span><span id="memory-summary">记忆仅保存在本机</span></p></div>
+    </aside>
+  </div>
+  <dialog id="settings-dialog" class="dialog settings-dialog" aria-labelledby="settings-title">
+    <form id="settings-form"><header class="dialog-header"><div><p class="eyebrow">你的工作台，你的选择</p><h2 id="settings-title">模型与连接</h2></div><button type="button" class="icon-button" data-close-dialog aria-label="关闭设置"><svg class="icon"><use href="#i-close"/></svg></button></header>
+      <div class="dialog-body"><label class="field">运行模式<select id="setting-mode"><option value="local">本地预览 · 规则回复（非大模型）</option><option value="openai">连接模型 · OpenAI 兼容接口</option></select></label><p class="field-help">本地预览可体验真实记忆保存，但不会调用大模型。模型调用失败时，不会悄悄切换为规则回复。</p>
+      <div class="field-row"><label class="field">服务商<select id="setting-provider"><option value="deepseek">DeepSeek</option><option value="openai">OpenAI</option><option value="ollama">Ollama（本机）</option><option value="custom">自定义兼容接口</option></select></label><label class="field">模型名称<input id="setting-model" autocomplete="off" placeholder="deepseek-chat"></label></div>
+      <label class="field">Base URL<input id="setting-url" type="url" placeholder="https://api.deepseek.com/v1" autocomplete="off"></label><p class="field-help">连接真实模型后，最近对话与相关记忆会发送至你配置的服务商。开启记忆时可能额外调用一次模型提取信息，产生额外 API 费用；暂停后停止长期记忆写入与注入。</p>
+      <label class="field">API Key <span id="key-status" class="key-status">未保存</span><input id="setting-key" type="password" autocomplete="new-password" placeholder="输入新的 Key；留空保留当前 Key" spellcheck="false"></label><p class="field-help">密钥仅保存在服务端，不会回传明文。更换服务商或地址来源时，不会沿用旧密钥。</p><label class="checkbox-field"><input id="clear-key" type="checkbox">清除已保存的密钥</label>
+      <div id="settings-result" class="settings-result" role="status" hidden></div></div>
+      <footer class="dialog-footer"><button type="button" class="secondary-button" id="test-settings">测试已保存连接</button><button type="submit" class="primary-button" id="save-settings">保存配置</button></footer>
+    </form>
+  </dialog>
+  <dialog id="detail-dialog" class="dialog" aria-labelledby="detail-title"><header class="dialog-header"><h2 id="detail-title"></h2><button class="icon-button" data-close-dialog aria-label="关闭窗口"><svg class="icon"><use href="#i-close"/></svg></button></header><div class="dialog-body" id="detail-body"></div><footer class="dialog-footer" id="detail-footer"></footer></dialog>
+  <div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+# 本地私密数据与凭证，绝不可提交或打包。
+runtime/
+.test-runtime*/
+.browser-profile/
+__pycache__/
+*.py[cod]
+.DS_Store
